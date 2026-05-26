@@ -32,7 +32,8 @@
   --vp-c-text-3: var(--claude-text-3);
 
   --vp-sidebar-bg-color: var(--claude-bg-alt);
-  --vp-sidebar-width: 272px;
+  --vp-sidebar-width: 220px;
+  --vp-aside-width: 200px;
 
   --vp-font-family-base: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   --vp-font-family-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', Menlo, Monaco, Consolas, 'Courier New', monospace;
@@ -486,6 +487,8 @@ a:hover {
 .VPSidebar {
   background-color: var(--vp-sidebar-bg-color) !important;
   border-right: 1px solid var(--vp-c-border) !important;
+  width: var(--vp-sidebar-width) !important;
+  padding-top: 1rem !important;
 }
 
 .dark .VPSidebar {
@@ -493,23 +496,31 @@ a:hover {
 }
 
 .VPSidebarItem {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
+  line-height: 1.4;
 }
 
 .VPSidebarItem.level-1 .text {
   font-weight: 600;
   color: var(--vp-c-text-1);
+  font-size: 0.85rem;
+  padding: 0.25rem 0;
 }
 
 .VPSidebarItem.level-2 .text {
   color: var(--vp-c-text-2);
-  padding-left: 1rem;
+  padding-left: 0.75rem;
+  font-size: 0.82rem;
+  padding-top: 0.2rem;
+  padding-bottom: 0.2rem;
 }
 
 .VPSidebarItem.level-3 .text {
   color: var(--vp-c-text-3);
-  padding-left: 2rem;
-  font-size: 0.85rem;
+  padding-left: 1.5rem;
+  font-size: 0.78rem;
+  padding-top: 0.15rem;
+  padding-bottom: 0.15rem;
 }
 
 .VPSidebarItem .text:hover {
@@ -525,18 +536,31 @@ a:hover {
   background-color: var(--claude-amber) !important;
 }
 
+.VPSidebarGroup .title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--vp-c-text-3);
+  padding: 0.5rem 0 0.25rem;
+}
+
 .VPDocAside {
   border-left: 1px solid var(--vp-c-border) !important;
+  width: var(--vp-aside-width) !important;
 }
 
 .VPDocAsideContainer {
-  padding-left: 1.5rem;
+  padding-left: 1rem;
+  padding-right: 0.5rem;
 }
 
 .VPDocAside .outline-link {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: var(--vp-c-text-3);
   transition: color 0.2s ease;
+  line-height: 1.4;
+  padding: 0.15rem 0;
 }
 
 .VPDocAside .outline-link:hover {
@@ -940,8 +964,28 @@ a:hover {
 
 @media (min-width: 1440px) {
   .VPDoc {
-    max-width: 800px;
+    max-width: 960px;
+    padding-left: 2rem;
+    padding-right: 2rem;
   }
+  
+  .VPDocAsideContainer {
+    padding-left: 1rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .VPDoc {
+    max-width: 860px;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+.VPDoc {
+  max-width: 780px;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
 }
 
 .vp-doc .vp-ad {
