@@ -1,0 +1,74 @@
+- generic [ref=e3]:
+  - link "Skip to content" [ref=e4] [cursor=pointer]:
+    - /url: "#VPContent"
+  - banner:
+    - generic:
+      - generic:
+        - generic:
+          - link "Claude Code 源码剖析" [ref=e6] [cursor=pointer]:
+            - /url: /claude-code-analysis/
+            - generic [ref=e7]: Claude Code 源码剖析
+          - generic [ref=e8]:
+            - button "搜索文档" [ref=e11] [cursor=pointer]:
+              - generic [ref=e14]: 搜索文档
+              - generic [ref=e15]:
+                - generic [ref=e16]: Ctrl
+                - generic [ref=e17]: K
+            - navigation "Main Navigation" [ref=e18]:
+              - generic [ref=e19]: Main Navigation
+              - link "首页" [ref=e20] [cursor=pointer]:
+                - /url: /claude-code-analysis/
+                - generic [ref=e21]: 首页
+              - link "阅读路线" [ref=e22] [cursor=pointer]:
+                - /url: /claude-code-analysis/reading-roadmap
+                - generic [ref=e23]: 阅读路线
+              - link "章节" [ref=e24] [cursor=pointer]:
+                - /url: /claude-code-analysis/chapters/01-architecture/
+                - generic [ref=e25]: 章节
+              - button "相关资源" [ref=e27] [cursor=pointer]:
+                - generic [ref=e29]: 相关资源
+            - switch "Switch to dark theme" [ref=e32] [cursor=pointer]
+            - link "github" [ref=e38] [cursor=pointer]:
+              - /url: https://github.com/FrozenYears/claude-code-analysis
+  - generic [ref=e41]:
+    - generic [ref=e44]:
+      - heading "Claude Code 源码剖析 深度解析 AI 编程助手的实现原理" [level=1] [ref=e45]:
+        - generic [ref=e46]: Claude Code 源码剖析
+        - generic [ref=e47]: 深度解析 AI 编程助手的实现原理
+      - paragraph [ref=e48]: 从 CLI 入口到安全机制，逐行剖析 51.5 万行 TypeScript 源码
+      - generic [ref=e49]:
+        - link "开始阅读" [ref=e51] [cursor=pointer]:
+          - /url: /claude-code-analysis/chapters/01-architecture/
+        - link "阅读路线图" [ref=e53] [cursor=pointer]:
+          - /url: /claude-code-analysis/reading-roadmap
+        - link "GitHub" [ref=e55] [cursor=pointer]:
+          - /url: https://github.com/FrozenYears/claude-code-analysis
+    - generic [ref=e58]:
+      - article [ref=e61]:
+        - generic [ref=e62]: 🏗️
+        - heading "四层架构" [level=2] [ref=e63]
+        - paragraph [ref=e64]: 深入理解用户界面层、引擎层、工具层、基础设施层的完整架构设计
+      - article [ref=e67]:
+        - generic [ref=e68]: ⚙️
+        - heading "Agentic Loop" [level=2] [ref=e69]
+        - paragraph [ref=e70]: 剖析 query() 函数中的无限循环，理解 LLM 与工具之间的多轮交互机制
+      - article [ref=e73]:
+        - generic [ref=e74]: 🤖
+        - heading "Agent 系统" [level=2] [ref=e75]
+        - paragraph [ref=e76]: 探索子 Agent 创建、Fork 机制、多 Agent 协作的完整实现
+      - article [ref=e79]:
+        - generic [ref=e80]: 🔧
+        - heading "Tool 系统" [level=2] [ref=e81]
+        - paragraph [ref=e82]: 分析 40+ 内置工具的注册、权限检查、执行流程的完整设计
+      - article [ref=e85]:
+        - generic [ref=e86]: 📦
+        - heading "Context 管理" [level=2] [ref=e87]
+        - paragraph [ref=e88]: 理解四级上下文压缩策略：Snip、Microcompact、Context Collapse、Auto-compact
+      - article [ref=e91]:
+        - generic [ref=e92]: 🔒
+        - heading "安全机制" [level=2] [ref=e93]
+        - paragraph [ref=e94]: 揭示工具权限控制、BashTool 安全检查链、权限模式切换的完整安全架构
+  - contentinfo [ref=e95]:
+    - generic [ref=e96]:
+      - paragraph [ref=e97]: 基于 Claude Code 源码的深度逆向工程分析
+      - paragraph [ref=e98]: © 2025-2026 Claude Code Analysis Project
