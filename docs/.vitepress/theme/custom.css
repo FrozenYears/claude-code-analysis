@@ -1,6 +1,6 @@
 /* ============================================
    Claude Code Analysis - Anthropic Docs Style
-   Design System: Tokens & Variables
+   Design System: Tokens & Variables (Central Reading Layout)
    ============================================ */
 
 :root {
@@ -29,8 +29,8 @@
 
   /* Background */
   --bg-page: #FFFFFF;
-  --bg-sidebar: #FAFAF8;
-  --bg-nav: rgba(255, 255, 255, 0.85);
+  --bg-sidebar: transparent;
+  --bg-nav: rgba(255, 255, 255, 0.95);
 
   /* Spacing Scale (4px base) */
   --space-1: 4px;
@@ -54,9 +54,9 @@
   --text-3xl: 1.875rem;
 
   /* Font Families */
-  --font-sans: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-mono: 'SF Mono', 'JetBrains Mono', 'Fira Code', Menlo, Monaco, Consolas, monospace;
-  --font-serif: 'Georgia', 'Noto Serif SC', 'Source Han Serif SC', serif;
+  --font-sans: "Inter", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "SF Mono", "JetBrains Mono", "Fira Code", Menlo, Monaco, Consolas, monospace;
+  --font-serif: "Georgia", "Noto Serif SC", "Source Han Serif SC", serif;
 
   /* Line Heights */
   --leading-tight: 1.25;
@@ -64,18 +64,19 @@
   --leading-relaxed: 1.625;
   --leading-loose: 1.75;
 
-  /* Layout */
+  /* Central Reading Layout Proportions */
   --nav-height: 56px;
   --sidebar-width: 240px;
   --toc-width: 200px;
-  --content-max-width: 720px;
+  --content-max-width: 760px;
+  --layout-max-width: 1440px;
 
   /* Transitions */
   --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-normal: 200ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
 
-  /* Shadows - Very Subtle */
+  /* Shadows */
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
   --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.06);
   --shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.08);
@@ -107,6 +108,7 @@
   --vp-sidebar-bg-color: var(--bg-sidebar);
   --vp-sidebar-width: var(--sidebar-width);
   --vp-nav-height: var(--nav-height);
+  --vp-layout-max-width: var(--layout-max-width);
 
   --vp-font-family-base: var(--font-sans);
   --vp-font-family-mono: var(--font-mono);
@@ -115,7 +117,7 @@
 /* Dark Mode */
 .dark {
   --surface-primary: #0D0D0D;
-  --surface-secondary: #141414;
+  --surface-secondary: #121212;
   --surface-tertiary: #1A1A1A;
   --surface-elevated: #1E1E1E;
 
@@ -129,8 +131,8 @@
   --border-muted: rgba(255, 255, 255, 0.04);
 
   --bg-page: #0D0D0D;
-  --bg-sidebar: #111111;
-  --bg-nav: rgba(13, 13, 13, 0.88);
+  --bg-sidebar: transparent;
+  --bg-nav: rgba(13, 13, 13, 0.95);
 
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.2);
   --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.3);
@@ -172,11 +174,23 @@ html {
 }
 
 body {
-  background-color: var(--bg-page);
+  background-color: var(--surface-secondary); /* Outer breathing room background */
   color: var(--text-primary);
   line-height: var(--leading-relaxed);
   font-size: var(--text-base);
   overflow-x: hidden;
+}
+
+#app {
+  background-color: var(--bg-page);
+  max-width: var(--layout-max-width);
+  margin: 0 auto;
+  min-height: 100vh;
+  box-shadow: 0 0 40px rgba(0,0,0,0.03);
+  position: relative;
+}
+.dark #app {
+  box-shadow: 0 0 40px rgba(0,0,0,0.3);
 }
 
 ::selection {
@@ -186,82 +200,15 @@ body {
 
 
 /* ============================================
-   Typography System
-   ============================================ */
-
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-sans);
-  font-weight: 600;
-  line-height: var(--leading-tight);
-  color: var(--text-primary);
-  letter-spacing: -0.01em;
-}
-
-h1 {
-  font-size: var(--text-2xl);
-  font-weight: 700;
-  letter-spacing: -0.02em;
-}
-
-h2 {
-  font-size: var(--text-xl);
-  font-weight: 600;
-  margin-top: var(--space-10);
-  margin-bottom: var(--space-4);
-  padding-bottom: var(--space-3);
-  border-bottom: 1px solid var(--border-muted);
-}
-
-h3 {
-  font-size: var(--text-lg);
-  font-weight: 600;
-  margin-top: var(--space-8);
-  margin-bottom: var(--space-3);
-}
-
-h4 {
-  font-size: var(--text-base);
-  font-weight: 600;
-  margin-top: var(--space-6);
-  margin-bottom: var(--space-2);
-}
-
-p {
-  margin-bottom: var(--space-4);
-  line-height: var(--leading-loose);
-  color: var(--text-secondary);
-}
-
-a {
-  color: var(--brand-primary);
-  text-decoration: none;
-  transition: color var(--transition-fast);
-}
-
-a:hover {
-  color: var(--brand-primary-hover);
-}
-
-strong {
-  font-weight: 600;
-  color: var(--text-primary);
-}
-
-em {
-  font-style: italic;
-  color: var(--text-tertiary);
-}
-
-
-/* ============================================
    Navigation Bar
    ============================================ */
 
 .VPNav {
-  position: fixed;
+  position: sticky !important; /* Change from fixed to sticky so it stays inside #app naturally */
   top: 0;
   left: 0;
   right: 0;
+  width: 100%;
   height: var(--nav-height);
   background: var(--bg-nav) !important;
   backdrop-filter: blur(12px);
@@ -271,15 +218,19 @@ em {
   transition: background-color var(--transition-normal);
 }
 
+/* Because VPNav is sticky, we dont need top padding on VPContent */
+
 .VPNavBar {
   height: var(--nav-height) !important;
-  padding: 0 var(--space-8) !important;
+  padding: 0 var(--space-6) !important;
+  background: transparent !important;
 }
 
 .VPNavBar .container {
   height: var(--nav-height);
   display: flex;
   align-items: center;
+  max-width: 100% !important; /* Fill the #app container */
 }
 
 .VPNavBar .title {
@@ -332,7 +283,7 @@ em {
   font-size: var(--text-sm) !important;
   color: var(--text-muted) !important;
   transition: all var(--transition-fast);
-  min-width: 200px;
+  min-width: 180px;
 }
 
 .VPNavBarSearchButton:hover {
@@ -366,67 +317,58 @@ em {
 
 
 /* ============================================
-   Sidebar
+   Sidebar (High Density, Low Contrast)
    ============================================ */
 
 .VPSidebar {
+  /* Using calc to align fixed sidebar within the max-width container */
   position: fixed;
   top: var(--nav-height);
-  left: 0;
+  left: max(0px, calc(50vw - (var(--layout-max-width) / 2)));
   bottom: 0;
   width: var(--sidebar-width);
   background: var(--bg-sidebar) !important;
-  border-right: 1px solid var(--border-subtle) !important;
+  border-right: none !important; /* Remove border to blend more */
   overflow-y: auto;
   overflow-x: hidden;
   z-index: var(--z-sidebar);
-  padding: var(--space-6) 0 !important;
-  scrollbar-width: thin;
-  scrollbar-color: var(--border-default) transparent;
+  padding: var(--space-6) 0 var(--space-6) var(--space-6) !important;
+  scrollbar-width: none; /* Hide scrollbar for a cleaner look */
 }
 
 .VPSidebar::-webkit-scrollbar {
-  width: 4px;
+  display: none;
 }
 
-.VPSidebar::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.VPSidebar::-webkit-scrollbar-thumb {
-  background: var(--border-default);
-  border-radius: 2px;
-}
-
-.VPSidebar::-webkit-scrollbar-thumb:hover {
-  background: var(--text-muted);
-}
-
+/* Tighter section spacing */
 .VPSidebarGroup {
-  padding: 0 var(--space-4);
-  margin-bottom: var(--space-2);
+  padding: 0 var(--space-2);
+  margin-bottom: var(--space-3); /* Reduced from space-6/8 to space-3 */
 }
 
+/* Muted, smaller section titles */
 .VPSidebarGroup .title {
   font-family: var(--font-sans);
-  font-size: var(--text-xs);
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  font-size: 0.7rem;
+  font-weight: 500;
+  text-transform: none; /* Removed uppercase */
+  letter-spacing: 0;
   color: var(--text-muted);
-  padding: var(--space-2) var(--space-3);
+  padding: var(--space-1) var(--space-2);
   margin-bottom: var(--space-1);
 }
 
+/* Tighter items */
 .VPSidebarItem {
   font-size: var(--text-sm);
-  line-height: var(--leading-normal);
+  line-height: var(--leading-tight); /* Tighter leading */
   border-radius: 6px;
-  transition: all var(--transition-fast);
+  transition: none; /* Snappier feel like Anthropic */
+  margin-bottom: 2px; /* Tiny gap */
 }
 
 .VPSidebarItem .text {
-  padding: var(--space-2) var(--space-3);
+  padding: 6px var(--space-2); /* Smaller vertical padding */
   color: var(--text-tertiary);
   transition: color var(--transition-fast);
 }
@@ -437,15 +379,28 @@ em {
 }
 
 .VPSidebarItem.active > .text {
-  color: var(--text-primary);
-  background: var(--brand-primary-subtle);
+  color: var(--brand-primary); /* Changed to brand color */
+  background: transparent;
   font-weight: 500;
 }
 
+/* Subtle left indicator instead of background fill */
 .VPSidebarItem.active > .indicator {
-  background-color: var(--brand-primary) !important;
+  display: none; /* Hide default indicator */
+}
+.VPSidebarItem.active {
+  position: relative;
+}
+.VPSidebarItem.active::before {
+  content: "";
+  position: absolute;
+  left: -8px;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 16px;
   width: 2px;
-  border-radius: 1px;
+  background-color: var(--brand-primary);
+  border-radius: 2px;
 }
 
 .VPSidebarItem.level-2 {
@@ -453,66 +408,78 @@ em {
 }
 
 .VPSidebarItem.level-3 {
-  padding-left: var(--space-6);
+  padding-left: var(--space-5);
   font-size: var(--text-xs);
 }
 
 
 /* ============================================
-   Main Content Area
+   Main Content Area (Visual Center)
    ============================================ */
 
 .VPContent {
+  /* No padding-top because VPNav is sticky inside #app, so it pushes content down naturally */
+  padding-top: 0; 
   margin-left: var(--sidebar-width);
   margin-right: var(--toc-width);
-  min-height: 100vh;
-  padding-top: var(--nav-height);
+  min-height: calc(100vh - var(--nav-height));
+  display: flex;
+  justify-content: center; /* Center the content area */
 }
 
 .VPDoc {
+  width: 100%;
   max-width: var(--content-max-width);
-  margin: 0 auto;
-  padding: var(--space-10) var(--space-8);
+  padding: var(--space-12) var(--space-8);
+  /* The layout-shell is max 1440. Sidebar is 240. TOC is 200. Leftover is 1000.
+     Max content is 760. So there is 120px padding left and right naturally inside VPContent. */
 }
 
+/* Typography Improvements */
 .VPDoc h1 {
-  font-size: var(--text-2xl);
-  margin-bottom: var(--space-6);
-  padding-bottom: var(--space-4);
-  border-bottom: 1px solid var(--border-muted);
+  font-size: var(--text-3xl); /* Larger H1 */
+  font-weight: 700;
+  margin-bottom: var(--space-8);
+  padding-bottom: 0;
+  border-bottom: none;
+  letter-spacing: -0.02em;
 }
 
 .VPDoc h2 {
   font-size: var(--text-xl);
-  margin-top: var(--space-12);
-  margin-bottom: var(--space-4);
-  padding-bottom: var(--space-3);
-  border-bottom: 1px solid var(--border-muted);
+  font-weight: 600;
+  margin-top: var(--space-16);
+  margin-bottom: var(--space-5);
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--border-muted); /* Extremely faint */
+  letter-spacing: -0.01em;
 }
 
 .VPDoc h3 {
   font-size: var(--text-lg);
-  margin-top: var(--space-8);
-  margin-bottom: var(--space-3);
+  font-weight: 600;
+  margin-top: var(--space-10);
+  margin-bottom: var(--space-4);
 }
 
 .VPDoc p {
   font-size: var(--text-base);
-  line-height: var(--leading-loose);
+  line-height: var(--leading-relaxed);
   color: var(--text-secondary);
-  margin-bottom: var(--space-4);
+  margin-bottom: var(--space-5);
 }
 
+/* Rest of standard content styles... */
 .VPDoc a {
   color: var(--brand-primary);
-  text-decoration: underline;
-  text-decoration-color: var(--brand-primary-muted);
-  text-underline-offset: 3px;
-  transition: text-decoration-color var(--transition-fast);
+  text-decoration: none;
+  transition: color var(--transition-fast);
 }
 
 .VPDoc a:hover {
-  text-decoration-color: var(--brand-primary);
+  color: var(--brand-primary-hover);
+  text-decoration: underline;
+  text-underline-offset: 4px;
 }
 
 .VPDoc strong {
@@ -525,41 +492,36 @@ em {
 }
 
 .VPDoc blockquote {
-  margin: var(--space-6) 0;
-  padding: var(--space-4) var(--space-5);
-  border-left: 3px solid var(--brand-primary-muted);
-  background: var(--surface-secondary);
-  border-radius: 0 8px 8px 0;
+  margin: var(--space-8) 0;
+  padding: var(--space-4) var(--space-6);
+  border-left: 2px solid var(--border-default);
+  background: transparent;
   color: var(--text-secondary);
-  font-size: var(--text-sm);
+  font-size: var(--text-base);
 }
 
 .VPDoc blockquote > p {
   margin: 0;
 }
 
-.VPDoc blockquote > p + p {
-  margin-top: var(--space-2);
-}
-
 .VPDoc hr {
   border: none;
-  border-top: 1px solid var(--border-muted);
-  margin: var(--space-8) 0;
+  border-top: 1px solid var(--border-subtle);
+  margin: var(--space-12) 0;
 }
 
 .VPDoc img {
   max-width: 100%;
   border-radius: 8px;
-  margin: var(--space-6) 0;
+  margin: var(--space-8) 0;
   border: 1px solid var(--border-subtle);
 }
 
 /* Lists */
 .VPDoc ul,
 .VPDoc ol {
-  padding-left: var(--space-5);
-  margin-bottom: var(--space-4);
+  padding-left: var(--space-6);
+  margin-bottom: var(--space-6);
 }
 
 .VPDoc li {
@@ -572,43 +534,22 @@ em {
   color: var(--text-muted);
 }
 
-.VPDoc ul li::marker {
-  content: "•";
-  font-size: 0.8em;
-}
-
-.VPDoc ol li::marker {
-  font-weight: 600;
-  color: var(--text-muted);
-}
-
-.VPDoc li > p {
-  margin: var(--space-1) 0;
-}
-
-.VPDoc li > ul,
-.VPDoc li > ol {
-  margin: var(--space-1) 0;
-}
-
-/* Tables */
 .VPDoc table {
   width: 100%;
   border-collapse: collapse;
-  margin: var(--space-6) 0;
+  margin: var(--space-8) 0;
   font-size: var(--text-sm);
 }
 
 .VPDoc table th {
-  background: var(--surface-secondary);
-  font-weight: 600;
+  background: transparent;
+  font-weight: 500;
   text-align: left;
   padding: var(--space-3) var(--space-4);
   border-bottom: 1px solid var(--border-default);
-  color: var(--text-primary);
+  color: var(--text-muted);
   font-size: var(--text-xs);
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
+  text-transform: none;
 }
 
 .VPDoc table td {
@@ -617,17 +558,77 @@ em {
   color: var(--text-secondary);
 }
 
-.VPDoc table tr:last-child td {
+
+/* ============================================
+   Right Sidebar (TOC) - Floating & Subtle
+   ============================================ */
+
+.VPDocAside {
+  /* Using calc to align fixed TOC within the max-width container */
+  position: fixed;
+  top: var(--nav-height);
+  right: max(0px, calc(50vw - (var(--layout-max-width) / 2)));
+  bottom: 0;
+  width: var(--toc-width);
+  padding: var(--space-12) var(--space-6) var(--space-8) 0;
+  overflow-y: auto;
+  border-left: none !important;
+  scrollbar-width: none;
+}
+
+.VPDocAside::-webkit-scrollbar {
+  display: none;
+}
+
+.VPDocAsideContainer {
+  padding: 0;
+  opacity: 0.8; /* Make the whole TOC slightly faded to reduce prominence */
+  transition: opacity var(--transition-fast);
+}
+
+.VPDocAsideContainer:hover {
+  opacity: 1; /* Full opacity on hover */
+}
+
+/* Subtle title */
+.VPDocAside .outline-title {
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 500;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--text-muted);
+  margin-bottom: var(--space-4);
+  padding-bottom: 0;
   border-bottom: none;
 }
 
-.VPDoc table tr:hover td {
-  background: var(--surface-secondary);
+.VPDocAside .outline-link {
+  display: block;
+  font-size: 0.75rem; /* Very small */
+  color: var(--text-muted); /* Faded color */
+  padding: 4px 0;
+  line-height: var(--leading-tight);
+  transition: all var(--transition-fast);
+  border-left: 1px solid var(--border-subtle); /* Very thin, subtle line */
+  padding-left: var(--space-3);
+  margin-left: 0;
 }
 
-.VPDoc table code {
-  font-size: 0.85em;
-  padding: 1px 4px;
+.VPDocAside .outline-link:hover {
+  color: var(--text-secondary);
+  border-left-color: var(--border-default);
+}
+
+/* Scroll spy active state */
+.VPDocAside .outline-link.active {
+  color: var(--brand-primary);
+  border-left-color: var(--brand-primary);
+  font-weight: 500;
+}
+
+.VPDocAside .outline-link.level-3 {
+  padding-left: var(--space-5);
 }
 
 
@@ -645,16 +646,8 @@ em {
   border: 1px solid var(--border-subtle);
 }
 
-.VPDoc a > code {
-  color: var(--brand-primary);
-}
-
-.VPDoc a:hover > code {
-  color: var(--brand-primary-hover);
-}
-
 .VPDoc div[class*="language-"] {
-  margin: var(--space-6) 0;
+  margin: var(--space-8) 0;
   border-radius: 8px;
   border: 1px solid var(--border-subtle);
   overflow: hidden;
@@ -683,562 +676,22 @@ em {
   color: var(--text-primary);
 }
 
-.VPDoc div[class*="language-"] .line-numbers {
-  color: var(--text-muted);
-  font-size: var(--text-xs);
-}
-
-.VPDoc div[class*="language-"] .lang {
-  position: absolute;
-  top: var(--space-2);
-  right: var(--space-4);
-  font-size: var(--text-xs);
-  font-weight: 500;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
 
 /* ============================================
-   Right Sidebar (TOC)
+   Responsive Layout Overrides
    ============================================ */
 
-.VPDocAside {
-  position: fixed;
-  top: var(--nav-height);
-  right: 0;
-  bottom: 0;
-  width: var(--toc-width);
-  padding: var(--space-8) var(--space-4);
-  overflow-y: auto;
-  border-left: 1px solid var(--border-subtle) !important;
-  scrollbar-width: thin;
-  scrollbar-color: var(--border-default) transparent;
-}
-
-.VPDocAside::-webkit-scrollbar {
-  width: 3px;
-}
-
-.VPDocAside::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.VPDocAside::-webkit-scrollbar-thumb {
-  background: var(--border-default);
-  border-radius: 2px;
-}
-
-.VPDocAsideContainer {
-  padding: 0;
-}
-
-.VPDocAside .outline-title {
-  font-family: var(--font-sans);
-  font-size: var(--text-xs);
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--text-muted);
-  margin-bottom: var(--space-4);
-  padding-bottom: var(--space-3);
-  border-bottom: 1px solid var(--border-muted);
-}
-
-.VPDocAside .outline-link {
-  display: block;
-  font-size: var(--text-xs);
-  color: var(--text-tertiary);
-  padding: var(--space-1) 0;
-  line-height: var(--leading-normal);
-  transition: color var(--transition-fast);
-  border-left: 2px solid transparent;
-  padding-left: var(--space-3);
-  margin-left: -1px;
-}
-
-.VPDocAside .outline-link:hover {
-  color: var(--text-primary);
-}
-
-.VPDocAside .outline-link.active {
-  color: var(--brand-primary);
-  border-left-color: var(--brand-primary);
-  font-weight: 500;
-}
-
-.VPDocAside .outline-link.level-3 {
-  padding-left: var(--space-6);
-  font-size: 0.7rem;
-}
-
-.VPDocAside .outline-link.level-4 {
-  padding-left: var(--space-8);
-  font-size: 0.7rem;
-}
-
-
-/* ============================================
-   Custom Blocks (Callouts)
-   ============================================ */
-
-.VPDoc div[class*="custom-block"] {
-  margin: var(--space-6) 0;
-  padding: var(--space-4) var(--space-5);
-  border-radius: 8px;
-  border: 1px solid var(--border-subtle);
-  background: var(--surface-secondary);
-}
-
-.VPDoc div[class*="custom-block"].tip {
-  border-color: var(--brand-primary-muted);
-  background: var(--brand-primary-subtle);
-}
-
-.VPDoc div[class*="custom-block"].tip::before {
-  background-color: var(--brand-primary);
-}
-
-.VPDoc div[class*="custom-block"].warning {
-  border-color: rgba(234, 179, 8, 0.2);
-  background: rgba(234, 179, 8, 0.05);
-}
-
-.VPDoc div[class*="custom-block"].warning::before {
-  background-color: #EAB308;
-}
-
-.VPDoc div[class*="custom-block"].danger {
-  border-color: rgba(239, 68, 68, 0.2);
-  background: rgba(239, 68, 68, 0.05);
-}
-
-.VPDoc div[class*="custom-block"].danger::before {
-  background-color: #EF4444;
-}
-
-.VPDoc div[class*="custom-block"].info {
-  border-color: rgba(59, 130, 246, 0.2);
-  background: rgba(59, 130, 246, 0.05);
-}
-
-.VPDoc div[class*="custom-block"].info::before {
-  background-color: #3B82F6;
-}
-
-.VPDoc div[class*="custom-block-title"] {
-  font-weight: 600;
-  font-size: var(--text-sm);
-  margin-bottom: var(--space-2);
-  color: var(--text-primary);
-}
-
-.VPDoc div[class*="custom-block-content"] {
-  font-size: var(--text-sm);
-  line-height: var(--leading-relaxed);
-}
-
-.VPDoc div[class*="custom-block-content"] p {
-  margin: var(--space-2) 0;
-  font-size: var(--text-sm);
-}
-
-.VPDoc div[class*="custom-block-content"] p:first-child {
-  margin-top: 0;
-}
-
-.VPDoc div[class*="custom-block-content"] p:last-child {
-  margin-bottom: 0;
-}
-
-
-/* ============================================
-   Buttons
-   ============================================ */
-
-.VPButton {
-  border-radius: 6px !important;
-  font-weight: 500;
-  font-size: var(--text-sm);
-  transition: all var(--transition-fast);
-  padding: var(--space-2) var(--space-4) !important;
-}
-
-.VPButton.brand {
-  background-color: var(--brand-primary) !important;
-  border-color: var(--brand-primary) !important;
-  color: #1A1A1A !important;
-}
-
-.VPButton.brand:hover {
-  background-color: var(--brand-primary-hover) !important;
-  border-color: var(--brand-primary-hover) !important;
-}
-
-.VPButton.alt {
-  background-color: var(--surface-tertiary) !important;
-  border-color: var(--border-default) !important;
-  color: var(--text-primary) !important;
-}
-
-.VPButton.alt:hover {
-  border-color: var(--brand-primary) !important;
-  color: var(--brand-primary) !important;
-}
-
-
-/* ============================================
-   Home Page
-   ============================================ */
-
-.VPHome {
-  padding: var(--space-16) 0;
-}
-
-.VPHero {
-  text-align: center;
-  margin-bottom: var(--space-16);
-}
-
-.VPHero .name {
-  font-family: var(--font-sans) !important;
-  font-weight: 700 !important;
-  font-size: var(--text-3xl) !important;
-  color: var(--text-primary) !important;
-  letter-spacing: -0.02em;
-}
-
-.VPHero .text {
-  color: var(--brand-primary) !important;
-}
-
-.VPHero .tagline {
-  color: var(--text-secondary) !important;
-  font-size: var(--text-lg);
-  line-height: var(--leading-relaxed);
-  margin-top: var(--space-4);
-}
-
-.VPFeatures {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: var(--space-4);
-  max-width: 960px;
-  margin: 0 auto;
-}
-
-.VPFeature {
-  border: 1px solid var(--border-subtle) !important;
-  border-radius: 8px !important;
-  background: var(--surface-elevated) !important;
-  padding: var(--space-5) !important;
-  transition: all var(--transition-fast);
-}
-
-.VPFeature:hover {
-  border-color: var(--brand-primary-muted) !important;
-  box-shadow: var(--shadow-sm);
-}
-
-.VPFeature .title {
-  font-family: var(--font-sans) !important;
-  font-weight: 600 !important;
-  font-size: var(--text-base) !important;
-  color: var(--text-primary) !important;
-  margin-bottom: var(--space-2);
-}
-
-.VPFeature .details {
-  color: var(--text-secondary) !important;
-  font-size: var(--text-sm);
-  line-height: var(--leading-relaxed);
-}
-
-
-/* ============================================
-   Footer
-   ============================================ */
-
-.VPFooter {
-  border-top: 1px solid var(--border-subtle) !important;
-  background: var(--surface-secondary) !important;
-  padding: var(--space-8) !important;
-}
-
-.VPFooter .message,
-.VPFooter .copyright {
-  color: var(--text-muted) !important;
-  font-size: var(--text-xs);
-}
-
-
-/* ============================================
-   Doc Footer (Prev/Next)
-   ============================================ */
-
-.VPDocFooter {
-  border-top: 1px solid var(--border-muted) !important;
-  margin-top: var(--space-12);
-  padding-top: var(--space-6);
-}
-
-.VPDocFooter .edit-info {
-  color: var(--text-muted);
-  font-size: var(--text-xs);
-}
-
-.VPDocFooter .edit-link-button {
-  color: var(--brand-primary) !important;
-  font-size: var(--text-xs);
-}
-
-.VPDocFooter .prev-next {
-  border-top: 1px solid var(--border-muted);
-  padding-top: var(--space-4);
-  margin-top: var(--space-4);
-}
-
-.VPDocFooter .pager .title {
-  color: var(--text-muted);
-  font-size: var(--text-xs);
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
-}
-
-.VPDocFooter .pager .link {
-  color: var(--brand-primary) !important;
-  font-weight: 600;
-  font-size: var(--text-sm);
-}
-
-.VPDocFooter .pager .link:hover {
-  color: var(--brand-primary-hover) !important;
-}
-
-
-/* ============================================
-   Header Anchors
-   ============================================ */
-
-.VPDoc .header-anchor {
-  color: var(--brand-primary) !important;
-  opacity: 0;
-  transition: opacity var(--transition-fast);
-  margin-left: var(--space-2);
-  font-size: 0.8em;
-}
-
-.VPDoc h1:hover .header-anchor,
-.VPDoc h2:hover .header-anchor,
-.VPDoc h3:hover .header-anchor,
-.VPDoc h4:hover .header-anchor {
-  opacity: 1;
-}
-
-
-/* ============================================
-   Code Groups
-   ============================================ */
-
-.VPDoc .vp-code-group {
-  margin: var(--space-6) 0;
-  border-radius: 8px;
-  border: 1px solid var(--border-subtle);
-  overflow: hidden;
-}
-
-.VPDoc .vp-code-group .tabs {
-  background: var(--surface-secondary);
-  border-bottom: 1px solid var(--border-subtle);
-}
-
-.VPDoc .vp-code-group .tabs label {
-  font-size: var(--text-xs);
-  font-weight: 500;
-  padding: var(--space-2) var(--space-4);
-  color: var(--text-tertiary);
-  border-bottom: 2px solid transparent;
-  transition: all var(--transition-fast);
-}
-
-.VPDoc .vp-code-group .tabs label:hover {
-  color: var(--text-primary);
-}
-
-.VPDoc .vp-code-group .tabs label.active {
-  color: var(--brand-primary);
-  border-bottom-color: var(--brand-primary);
-}
-
-.VPDoc .vp-code-group .blocks {
-  background: var(--surface-primary);
-}
-
-.dark .VPDoc .vp-code-group .blocks {
-  background: #0A0A0A;
-}
-
-
-/* ============================================
-   Badges
-   ============================================ */
-
-.VPDoc .badge {
-  display: inline-block;
-  font-size: 0.7rem;
-  font-weight: 600;
-  padding: 2px 6px;
-  border-radius: 4px;
-  background: var(--brand-primary-muted);
-  color: var(--brand-primary);
-  vertical-align: middle;
-  margin-left: var(--space-2);
-}
-
-
-/* ============================================
-   Search Modal
-   ============================================ */
-
-.VPLocalSearchBox {
-  --docsearch-primary-color: var(--brand-primary) !important;
-}
-
-.VPLocalSearchBox .DocSearch-Modal {
-  background: var(--surface-elevated) !important;
-  border: 1px solid var(--border-default) !important;
-  border-radius: 12px !important;
-  box-shadow: var(--shadow-lg) !important;
-}
-
-.VPLocalSearchBox .DocSearch-Input {
-  font-family: var(--font-sans);
-  font-size: var(--text-base);
-}
-
-.VPLocalSearchBox .DocSearch-Hit {
-  border-radius: 6px;
-}
-
-.VPLocalSearchBox .DocSearch-Hit:hover {
-  background: var(--surface-tertiary);
-}
-
-.VPLocalSearchBox .DocSearch-Hit[aria-selected="true"] {
-  background: var(--brand-primary-subtle);
-}
-
-
-/* ============================================
-   Scrollbar
-   ============================================ */
-
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--border-default);
-  border-radius: 3px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--text-muted);
-}
-
-
-/* ============================================
-   Keyboard Shortcuts
-   ============================================ */
-
-.VPDoc kbd {
-  display: inline-block;
-  padding: 2px 6px;
-  font-family: var(--font-mono);
-  font-size: 0.8em;
-  color: var(--text-primary);
-  background: var(--surface-tertiary);
-  border: 1px solid var(--border-default);
-  border-radius: 4px;
-  box-shadow: 0 1px 0 var(--border-default);
-}
-
-
-/* ============================================
-   Details/Summary
-   ============================================ */
-
-.VPDoc details {
-  margin: var(--space-4) 0;
-  padding: var(--space-4);
-  border: 1px solid var(--border-subtle);
-  border-radius: 8px;
-  background: var(--surface-secondary);
-}
-
-.VPDoc details summary {
-  font-weight: 600;
-  cursor: pointer;
-  color: var(--text-primary);
-  padding: var(--space-2) 0;
-  font-size: var(--text-sm);
-}
-
-.VPDoc details summary:hover {
-  color: var(--brand-primary);
-}
-
-.VPDoc details[open] summary {
-  margin-bottom: var(--space-3);
-  border-bottom: 1px solid var(--border-muted);
-  padding-bottom: var(--space-3);
-}
-
-
-/* ============================================
-   Admonitions
-   ============================================ */
-
-.VPDoc mark {
-  background-color: var(--brand-primary-muted);
-  color: inherit;
-  padding: 1px 4px;
-  border-radius: 3px;
-}
-
-.VPDoc del {
-  color: var(--text-muted);
-  text-decoration: line-through;
-}
-
-.VPDoc abbr[title] {
-  text-decoration: underline dotted;
-  cursor: help;
-}
-
-
-/* ============================================
-   Responsive Design
-   ============================================ */
-
-@media (max-width: 1280px) {
+@media (max-width: 1440px) {
   :root {
     --toc-width: 180px;
-    --content-max-width: 680px;
+    --sidebar-width: 220px;
   }
 }
 
 @media (max-width: 1024px) {
   :root {
     --sidebar-width: 220px;
-    --toc-width: 0px;
+    --toc-width: 0px; /* Hide TOC on medium screens */
   }
 
   .VPDocAside {
@@ -1256,12 +709,23 @@ em {
     --sidebar-width: 0px;
   }
 
+  /* Reset layout shell for mobile */
+  #app {
+    box-shadow: none;
+  }
+  body {
+    background-color: var(--bg-page);
+  }
+
   .VPSidebar {
+    left: 0;
     transform: translateX(-100%);
     transition: transform var(--transition-normal);
     width: 280px;
     background: var(--bg-page) !important;
     z-index: var(--z-overlay);
+    padding: var(--space-6) !important;
+    border-right: 1px solid var(--border-subtle) !important;
   }
 
   .VPSidebar.open {
@@ -1271,78 +735,9 @@ em {
 
   .VPContent {
     margin-left: 0;
-    padding: var(--space-4);
   }
 
   .VPDoc {
-    padding: var(--space-6) var(--space-4);
+    padding: var(--space-8) var(--space-4);
   }
-
-  .VPNavBar {
-    padding: 0 var(--space-4) !important;
-  }
-
-  .VPNavBarSearchButton {
-    min-width: auto;
-  }
-
-  .VPHero .name {
-    font-size: var(--text-2xl) !important;
-  }
-
-  .VPFeatures {
-    grid-template-columns: 1fr;
-  }
-
-  h1 {
-    font-size: var(--text-xl);
-  }
-
-  h2 {
-    font-size: var(--text-lg);
-  }
-
-  h3 {
-    font-size: var(--text-base);
-  }
-}
-
-@media (max-width: 480px) {
-  .VPDoc {
-    padding: var(--space-4) var(--space-3);
-  }
-
-  .VPDoc div[class*="language-"] pre {
-    font-size: 0.8rem;
-    padding: var(--space-3);
-  }
-
-  .VPDoc table {
-    display: block;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-}
-
-
-/* ============================================
-   Utility Classes
-   ============================================ */
-
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
-.truncate {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
