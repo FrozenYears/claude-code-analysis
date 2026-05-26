@@ -67,9 +67,8 @@
   /* Central Reading Layout Proportions */
   --nav-height: 56px;
   --sidebar-width: 240px;
-  --toc-width: 200px;
-  --content-max-width: 760px;
-  --layout-max-width: 1440px;
+  --toc-width: 280px;
+  --layout-max-width: 1500px;
 
   /* Transitions */
   --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -218,8 +217,6 @@ body {
   transition: background-color var(--transition-normal);
 }
 
-/* Because VPNav is sticky, we dont need top padding on VPContent */
-
 .VPNavBar {
   height: var(--nav-height) !important;
   padding: 0 var(--space-6) !important;
@@ -321,54 +318,50 @@ body {
    ============================================ */
 
 .VPSidebar {
-  /* Using calc to align fixed sidebar within the max-width container */
   position: fixed;
   top: var(--nav-height);
   left: max(0px, calc(50vw - (var(--layout-max-width) / 2)));
   bottom: 0;
   width: var(--sidebar-width);
   background: var(--bg-sidebar) !important;
-  border-right: none !important; /* Remove border to blend more */
+  border-right: none !important;
   overflow-y: auto;
   overflow-x: hidden;
   z-index: var(--z-sidebar);
   padding: var(--space-6) 0 var(--space-6) var(--space-6) !important;
-  scrollbar-width: none; /* Hide scrollbar for a cleaner look */
+  scrollbar-width: none;
 }
 
 .VPSidebar::-webkit-scrollbar {
   display: none;
 }
 
-/* Tighter section spacing */
 .VPSidebarGroup {
   padding: 0 var(--space-2);
-  margin-bottom: var(--space-3); /* Reduced from space-6/8 to space-3 */
+  margin-bottom: var(--space-3);
 }
 
-/* Muted, smaller section titles */
 .VPSidebarGroup .title {
   font-family: var(--font-sans);
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   font-weight: 500;
-  text-transform: none; /* Removed uppercase */
+  text-transform: none;
   letter-spacing: 0;
   color: var(--text-muted);
   padding: var(--space-1) var(--space-2);
   margin-bottom: var(--space-1);
 }
 
-/* Tighter items */
 .VPSidebarItem {
   font-size: var(--text-sm);
-  line-height: var(--leading-tight); /* Tighter leading */
+  line-height: var(--leading-tight);
   border-radius: 6px;
-  transition: none; /* Snappier feel like Anthropic */
-  margin-bottom: 2px; /* Tiny gap */
+  transition: none;
+  margin-bottom: 2px;
 }
 
 .VPSidebarItem .text {
-  padding: 6px var(--space-2); /* Smaller vertical padding */
+  padding: 6px var(--space-2);
   color: var(--text-tertiary);
   transition: color var(--transition-fast);
 }
@@ -379,14 +372,13 @@ body {
 }
 
 .VPSidebarItem.active > .text {
-  color: var(--brand-primary); /* Changed to brand color */
+  color: var(--brand-primary);
   background: transparent;
   font-weight: 500;
 }
 
-/* Subtle left indicator instead of background fill */
 .VPSidebarItem.active > .indicator {
-  display: none; /* Hide default indicator */
+  display: none;
 }
 .VPSidebarItem.active {
   position: relative;
@@ -418,26 +410,24 @@ body {
    ============================================ */
 
 .VPContent {
-  /* No padding-top because VPNav is sticky inside #app, so it pushes content down naturally */
   padding-top: 0; 
   margin-left: var(--sidebar-width);
   margin-right: var(--toc-width);
   min-height: calc(100vh - var(--nav-height));
-  display: flex;
-  justify-content: center; /* Center the content area */
+  display: block; /* Essential for precise gap control */
 }
 
 .VPDoc {
   width: 100%;
-  max-width: var(--content-max-width);
-  padding: var(--space-12) var(--space-8);
-  /* The layout-shell is max 1440. Sidebar is 240. TOC is 200. Leftover is 1000.
-     Max content is 760. So there is 120px padding left and right naturally inside VPContent. */
+  max-width: 100%;
+  /* 40px top padding, 32px left/right gap = EXACTLY 32px gap from Sidebar and TOC */
+  padding: var(--space-10) var(--space-8);
+  margin: 0; 
 }
 
 /* Typography Improvements */
 .VPDoc h1 {
-  font-size: var(--text-3xl); /* Larger H1 */
+  font-size: var(--text-3xl);
   font-weight: 700;
   margin-bottom: var(--space-8);
   padding-bottom: 0;
@@ -451,7 +441,7 @@ body {
   margin-top: var(--space-16);
   margin-bottom: var(--space-5);
   padding-bottom: var(--space-2);
-  border-bottom: 1px solid var(--border-muted); /* Extremely faint */
+  border-bottom: 1px solid var(--border-muted);
   letter-spacing: -0.01em;
 }
 
@@ -469,7 +459,6 @@ body {
   margin-bottom: var(--space-5);
 }
 
-/* Rest of standard content styles... */
 .VPDoc a {
   color: var(--brand-primary);
   text-decoration: none;
@@ -564,13 +553,13 @@ body {
    ============================================ */
 
 .VPDocAside {
-  /* Using calc to align fixed TOC within the max-width container */
   position: fixed;
   top: var(--nav-height);
   right: max(0px, calc(50vw - (var(--layout-max-width) / 2)));
   bottom: 0;
   width: var(--toc-width);
-  padding: var(--space-12) var(--space-6) var(--space-8) 0;
+  /* Added right padding so TOC does not stick to the edge of the layout shell */
+  padding: var(--space-12) var(--space-8) var(--space-8) 0;
   overflow-y: auto;
   border-left: none !important;
   scrollbar-width: none;
@@ -582,18 +571,17 @@ body {
 
 .VPDocAsideContainer {
   padding: 0;
-  opacity: 0.8; /* Make the whole TOC slightly faded to reduce prominence */
+  opacity: 0.8;
   transition: opacity var(--transition-fast);
 }
 
 .VPDocAsideContainer:hover {
-  opacity: 1; /* Full opacity on hover */
+  opacity: 1;
 }
 
-/* Subtle title */
 .VPDocAside .outline-title {
   font-family: var(--font-sans);
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   font-weight: 500;
   text-transform: none;
   letter-spacing: 0;
@@ -605,12 +593,13 @@ body {
 
 .VPDocAside .outline-link {
   display: block;
-  font-size: 0.75rem; /* Very small */
-  color: var(--text-muted); /* Faded color */
+  font-size: 0.8rem; /* Slightly larger for readability */
+  color: var(--text-muted);
   padding: 4px 0;
-  line-height: var(--leading-tight);
+  line-height: 1.4;
+  white-space: normal !important; /* Allow wrapping */
   transition: all var(--transition-fast);
-  border-left: 1px solid var(--border-subtle); /* Very thin, subtle line */
+  border-left: 1px solid var(--border-subtle);
   padding-left: var(--space-3);
   margin-left: 0;
 }
@@ -620,7 +609,6 @@ body {
   border-left-color: var(--border-default);
 }
 
-/* Scroll spy active state */
 .VPDocAside .outline-link.active {
   color: var(--brand-primary);
   border-left-color: var(--brand-primary);
@@ -683,7 +671,7 @@ body {
 
 @media (max-width: 1440px) {
   :root {
-    --toc-width: 180px;
+    --toc-width: 240px;
     --sidebar-width: 220px;
   }
 }
@@ -691,7 +679,7 @@ body {
 @media (max-width: 1024px) {
   :root {
     --sidebar-width: 220px;
-    --toc-width: 0px; /* Hide TOC on medium screens */
+    --toc-width: 0px; 
   }
 
   .VPDocAside {
@@ -709,7 +697,6 @@ body {
     --sidebar-width: 0px;
   }
 
-  /* Reset layout shell for mobile */
   #app {
     box-shadow: none;
   }
