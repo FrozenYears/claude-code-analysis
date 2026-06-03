@@ -4,10 +4,25 @@
   "description": "Deep reverse-engineering and architectural analysis of Claude Code",
   "private": true,
   "type": "module",
+  "author": "FrozenYears",
+  "license": "MIT",
+  "keywords": [
+    "claude-code",
+    "source-code",
+    "reverse-engineering",
+    "analysis",
+    "documentation",
+    "vitepress"
+  ],
+  "engines": {
+    "node": ">=22.0.0"
+  },
   "scripts": {
     "dev": "vitepress dev docs",
     "build": "vitepress build docs",
-    "preview": "vitepress preview docs"
+    "preview": "vitepress preview docs",
+    "ebook": "python3 build_ebook.py",
+    "clean": "rm -rf docs/.vitepress/dist docs/.vitepress/cache ebook/index.html"
   },
   "devDependencies": {
     "vitepress": "^1.6.3",
