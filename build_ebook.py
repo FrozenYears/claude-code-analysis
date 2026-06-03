@@ -185,7 +185,7 @@ def build():
     html = HTML.replace("__CHAPTERS_JSON__", json.dumps(chapters, ensure_ascii=False))
     out = OUT / "index.html"
     out.write_text(html, encoding="utf-8")
-    print(f"✅ Built: {out} ({len(html)} bytes, {len(chapters)} chapters)")
+    print(f"Built: {out} ({len(html)} bytes, {len(chapters)} chapters)")
 
 if __name__ == "__main__":
     build()
