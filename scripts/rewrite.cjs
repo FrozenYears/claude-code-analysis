@@ -1,0 +1,741 @@
+
+const fs = require("fs");
+const path = require("path");
+
+const newCSS = `/* ============================================
+   Claude Code Analysis - Anthropic Docs Style
+   Design System: Tokens & Variables (Central Reading Layout)
+   ============================================ */
+
+:root {
+  /* Brand Colors - Warm Amber (subtle) */
+  --brand-primary: #D4A27F;
+  --brand-primary-hover: #E8C4A8;
+  --brand-primary-muted: rgba(212, 162, 127, 0.12);
+  --brand-primary-subtle: rgba(212, 162, 127, 0.08);
+
+  /* Surface Colors - Light Mode */
+  --surface-primary: #FFFFFF;
+  --surface-secondary: #FAFAF8;
+  --surface-tertiary: #F5F5F0;
+  --surface-elevated: #FFFFFF;
+
+  /* Text Colors - Light Mode */
+  --text-primary: #1A1A1A;
+  --text-secondary: #525252;
+  --text-tertiary: #737373;
+  --text-muted: #A3A3A3;
+
+  /* Border Colors - Light Mode */
+  --border-default: #E5E5E0;
+  --border-subtle: #EBEBE6;
+  --border-muted: #F0F0EB;
+
+  /* Background */
+  --bg-page: #FFFFFF;
+  --bg-sidebar: transparent;
+  --bg-nav: rgba(255, 255, 255, 0.95);
+
+  /* Spacing Scale (4px base) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+
+  /* Typography Scale */
+  --text-xs: 0.75rem;
+  --text-sm: 0.8125rem;
+  --text-base: 0.9375rem;
+  --text-lg: 1.0625rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+
+  /* Font Families */
+  --font-sans: "Inter", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "SF Mono", "JetBrains Mono", "Fira Code", Menlo, Monaco, Consolas, monospace;
+  --font-serif: "Georgia", "Noto Serif SC", "Source Han Serif SC", serif;
+
+  /* Line Heights */
+  --leading-tight: 1.25;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.625;
+  --leading-loose: 1.75;
+
+  /* Central Reading Layout Proportions */
+  --nav-height: 56px;
+  --sidebar-width: 240px;
+  --toc-width: 280px;
+  --layout-max-width: 1500px;
+
+  /* Transitions */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.08);
+
+  /* Z-Index Scale */
+  --z-sidebar: 20;
+  --z-nav: 30;
+  --z-overlay: 40;
+  --z-modal: 50;
+
+  /* VitePress Overrides */
+  --vp-c-brand-1: var(--brand-primary);
+  --vp-c-brand-2: var(--brand-primary-hover);
+  --vp-c-brand-3: var(--brand-primary);
+  --vp-c-brand-soft: var(--brand-primary-muted);
+
+  --vp-c-bg: var(--bg-page);
+  --vp-c-bg-alt: var(--surface-secondary);
+  --vp-c-bg-elv: var(--surface-elevated);
+  --vp-c-bg-soft: var(--surface-tertiary);
+
+  --vp-c-border: var(--border-default);
+  --vp-c-border-light: var(--border-subtle);
+
+  --vp-c-text-1: var(--text-primary);
+  --vp-c-text-2: var(--text-secondary);
+  --vp-c-text-3: var(--text-tertiary);
+
+  --vp-sidebar-bg-color: var(--bg-sidebar);
+  --vp-sidebar-width: var(--sidebar-width);
+  --vp-nav-height: var(--nav-height);
+  --vp-layout-max-width: var(--layout-max-width);
+
+  --vp-font-family-base: var(--font-sans);
+  --vp-font-family-mono: var(--font-mono);
+}
+
+/* Dark Mode */
+.dark {
+  --surface-primary: #0D0D0D;
+  --surface-secondary: #121212;
+  --surface-tertiary: #1A1A1A;
+  --surface-elevated: #1E1E1E;
+
+  --text-primary: rgba(255, 255, 255, 0.88);
+  --text-secondary: rgba(255, 255, 255, 0.65);
+  --text-tertiary: rgba(255, 255, 255, 0.45);
+  --text-muted: rgba(255, 255, 255, 0.3);
+
+  --border-default: rgba(255, 255, 255, 0.1);
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --border-muted: rgba(255, 255, 255, 0.04);
+
+  --bg-page: #0D0D0D;
+  --bg-sidebar: transparent;
+  --bg-nav: rgba(13, 13, 13, 0.95);
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.4);
+
+  --vp-c-bg: var(--bg-page);
+  --vp-c-bg-alt: var(--surface-secondary);
+  --vp-c-bg-elv: var(--surface-elevated);
+  --vp-c-bg-soft: var(--surface-tertiary);
+
+  --vp-c-border: var(--border-default);
+  --vp-c-border-light: var(--border-subtle);
+
+  --vp-c-text-1: var(--text-primary);
+  --vp-c-text-2: var(--text-secondary);
+  --vp-c-text-3: var(--text-tertiary);
+
+  --vp-sidebar-bg-color: var(--bg-sidebar);
+}
+
+
+/* ============================================
+   Base Styles
+   ============================================ */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--surface-secondary); /* Outer breathing room background */
+  color: var(--text-primary);
+  line-height: var(--leading-relaxed);
+  font-size: var(--text-base);
+  overflow-x: hidden;
+}
+
+#app {
+  background-color: var(--bg-page);
+  max-width: var(--layout-max-width);
+  margin: 0 auto;
+  min-height: 100vh;
+  box-shadow: 0 0 40px rgba(0,0,0,0.03);
+  position: relative;
+}
+.dark #app {
+  box-shadow: 0 0 40px rgba(0,0,0,0.3);
+}
+
+::selection {
+  background-color: var(--brand-primary-muted);
+  color: var(--text-primary);
+}
+
+
+/* ============================================
+   Navigation Bar
+   ============================================ */
+
+.VPNav {
+  position: sticky !important; /* Change from fixed to sticky so it stays inside #app naturally */
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: var(--nav-height);
+  background: var(--bg-nav) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-subtle) !important;
+  z-index: var(--z-nav);
+  transition: background-color var(--transition-normal);
+}
+
+.VPNavBar {
+  height: var(--nav-height) !important;
+  padding: 0 var(--space-6) !important;
+  background: transparent !important;
+}
+
+.VPNavBar .container {
+  height: var(--nav-height);
+  display: flex;
+  align-items: center;
+  max-width: 100% !important; /* Fill the #app container */
+}
+
+.VPNavBar .title {
+  font-family: var(--font-sans) !important;
+  font-weight: 600 !important;
+  font-size: var(--text-sm) !important;
+  color: var(--text-primary) !important;
+  letter-spacing: -0.01em;
+}
+
+.VPNavBar .title:hover {
+  color: var(--brand-primary) !important;
+}
+
+.VPNavBarMenu {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.VPNavBarMenuLink {
+  font-size: var(--text-sm) !important;
+  font-weight: 500 !important;
+  color: var(--text-tertiary) !important;
+  padding: var(--space-2) var(--space-3) !important;
+  border-radius: 6px;
+  transition: all var(--transition-fast);
+}
+
+.VPNavBarMenuLink:hover {
+  color: var(--text-primary) !important;
+  background: var(--surface-tertiary);
+}
+
+.VPNavBarMenuLink.active {
+  color: var(--text-primary) !important;
+  background: var(--surface-tertiary);
+}
+
+/* Search Box */
+.VPNavBarSearch {
+  margin-left: auto;
+}
+
+.VPNavBarSearchButton {
+  background: var(--surface-tertiary) !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: 8px !important;
+  padding: var(--space-2) var(--space-3) !important;
+  font-size: var(--text-sm) !important;
+  color: var(--text-muted) !important;
+  transition: all var(--transition-fast);
+  min-width: 180px;
+}
+
+.VPNavBarSearchButton:hover {
+  border-color: var(--border-default) !important;
+  background: var(--surface-secondary) !important;
+}
+
+.VPNavBarSearchButton .kbd {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  background: var(--surface-secondary);
+  border: 1px solid var(--border-default);
+  border-radius: 4px;
+  padding: 1px 5px;
+  color: var(--text-muted);
+}
+
+/* Social Links */
+.VPSocialLinks {
+  margin-left: var(--space-4);
+}
+
+.VPSocialLink {
+  color: var(--text-tertiary) !important;
+  transition: color var(--transition-fast);
+}
+
+.VPSocialLink:hover {
+  color: var(--text-primary) !important;
+}
+
+
+/* ============================================
+   Sidebar (High Density, Low Contrast)
+   ============================================ */
+
+.VPSidebar {
+  position: fixed;
+  top: var(--nav-height);
+  left: max(0px, calc(50vw - (var(--layout-max-width) / 2)));
+  bottom: 0;
+  width: var(--sidebar-width);
+  background: var(--bg-sidebar) !important;
+  border-right: none !important;
+  overflow-y: auto;
+  overflow-x: hidden;
+  z-index: var(--z-sidebar);
+  padding: var(--space-6) 0 var(--space-6) var(--space-6) !important;
+  scrollbar-width: none;
+}
+
+.VPSidebar::-webkit-scrollbar {
+  display: none;
+}
+
+.VPSidebarGroup {
+  padding: 0 var(--space-2);
+  margin-bottom: var(--space-3);
+}
+
+.VPSidebarGroup .title {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--text-muted);
+  padding: var(--space-1) var(--space-2);
+  margin-bottom: var(--space-1);
+}
+
+.VPSidebarItem {
+  font-size: var(--text-sm);
+  line-height: var(--leading-tight);
+  border-radius: 6px;
+  transition: none;
+  margin-bottom: 2px;
+}
+
+.VPSidebarItem .text {
+  padding: 6px var(--space-2);
+  color: var(--text-tertiary);
+  transition: color var(--transition-fast);
+}
+
+.VPSidebarItem:hover .text {
+  color: var(--text-primary);
+  background: var(--surface-tertiary);
+}
+
+.VPSidebarItem.active > .text {
+  color: var(--brand-primary);
+  background: transparent;
+  font-weight: 500;
+}
+
+.VPSidebarItem.active > .indicator {
+  display: none;
+}
+.VPSidebarItem.active {
+  position: relative;
+}
+.VPSidebarItem.active::before {
+  content: "";
+  position: absolute;
+  left: -8px;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 16px;
+  width: 2px;
+  background-color: var(--brand-primary);
+  border-radius: 2px;
+}
+
+.VPSidebarItem.level-2 {
+  padding-left: var(--space-3);
+}
+
+.VPSidebarItem.level-3 {
+  padding-left: var(--space-5);
+  font-size: var(--text-xs);
+}
+
+
+/* ============================================
+   Main Content Area (Visual Center)
+   ============================================ */
+
+.VPContent {
+  padding-top: 0; 
+  margin-left: var(--sidebar-width);
+  margin-right: var(--toc-width);
+  min-height: calc(100vh - var(--nav-height));
+  display: block; /* Essential for precise gap control */
+}
+
+.VPDoc {
+  width: 100%;
+  max-width: 100%;
+  /* 40px top padding, 32px left/right gap = EXACTLY 32px gap from Sidebar and TOC */
+  padding: var(--space-10) var(--space-8);
+  margin: 0; 
+}
+
+/* Typography Improvements */
+.VPDoc h1 {
+  font-size: var(--text-3xl);
+  font-weight: 700;
+  margin-bottom: var(--space-8);
+  padding-bottom: 0;
+  border-bottom: none;
+  letter-spacing: -0.02em;
+}
+
+.VPDoc h2 {
+  font-size: var(--text-xl);
+  font-weight: 600;
+  margin-top: var(--space-16);
+  margin-bottom: var(--space-5);
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--border-muted);
+  letter-spacing: -0.01em;
+}
+
+.VPDoc h3 {
+  font-size: var(--text-lg);
+  font-weight: 600;
+  margin-top: var(--space-10);
+  margin-bottom: var(--space-4);
+}
+
+.VPDoc p {
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+  color: var(--text-secondary);
+  margin-bottom: var(--space-5);
+}
+
+.VPDoc a {
+  color: var(--brand-primary);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.VPDoc a:hover {
+  color: var(--brand-primary-hover);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.VPDoc strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.VPDoc em {
+  color: var(--text-tertiary);
+}
+
+.VPDoc blockquote {
+  margin: var(--space-8) 0;
+  padding: var(--space-4) var(--space-6);
+  border-left: 2px solid var(--border-default);
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: var(--text-base);
+}
+
+.VPDoc blockquote > p {
+  margin: 0;
+}
+
+.VPDoc hr {
+  border: none;
+  border-top: 1px solid var(--border-subtle);
+  margin: var(--space-12) 0;
+}
+
+.VPDoc img {
+  max-width: 100%;
+  border-radius: 8px;
+  margin: var(--space-8) 0;
+  border: 1px solid var(--border-subtle);
+}
+
+/* Lists */
+.VPDoc ul,
+.VPDoc ol {
+  padding-left: var(--space-6);
+  margin-bottom: var(--space-6);
+}
+
+.VPDoc li {
+  margin-bottom: var(--space-2);
+  line-height: var(--leading-relaxed);
+  color: var(--text-secondary);
+}
+
+.VPDoc li::marker {
+  color: var(--text-muted);
+}
+
+.VPDoc table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: var(--space-8) 0;
+  font-size: var(--text-sm);
+}
+
+.VPDoc table th {
+  background: transparent;
+  font-weight: 500;
+  text-align: left;
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--border-default);
+  color: var(--text-muted);
+  font-size: var(--text-xs);
+  text-transform: none;
+}
+
+.VPDoc table td {
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+}
+
+
+/* ============================================
+   Right Sidebar (TOC) - Floating & Subtle
+   ============================================ */
+
+.VPDocAside {
+  position: fixed;
+  top: var(--nav-height);
+  right: max(0px, calc(50vw - (var(--layout-max-width) / 2)));
+  bottom: 0;
+  width: var(--toc-width);
+  /* Added right padding so TOC does not stick to the edge of the layout shell */
+  padding: var(--space-12) var(--space-8) var(--space-8) 0;
+  overflow-y: auto;
+  border-left: none !important;
+  scrollbar-width: none;
+}
+
+.VPDocAside::-webkit-scrollbar {
+  display: none;
+}
+
+.VPDocAsideContainer {
+  padding: 0;
+  opacity: 0.8;
+  transition: opacity var(--transition-fast);
+}
+
+.VPDocAsideContainer:hover {
+  opacity: 1;
+}
+
+.VPDocAside .outline-title {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--text-muted);
+  margin-bottom: var(--space-4);
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.VPDocAside .outline-link {
+  display: block;
+  font-size: 0.8rem; /* Slightly larger for readability */
+  color: var(--text-muted);
+  padding: 4px 0;
+  line-height: 1.4;
+  white-space: normal !important; /* Allow wrapping */
+  transition: all var(--transition-fast);
+  border-left: 1px solid var(--border-subtle);
+  padding-left: var(--space-3);
+  margin-left: 0;
+}
+
+.VPDocAside .outline-link:hover {
+  color: var(--text-secondary);
+  border-left-color: var(--border-default);
+}
+
+.VPDocAside .outline-link.active {
+  color: var(--brand-primary);
+  border-left-color: var(--brand-primary);
+  font-weight: 500;
+}
+
+.VPDocAside .outline-link.level-3 {
+  padding-left: var(--space-5);
+}
+
+
+/* ============================================
+   Code Blocks
+   ============================================ */
+
+.VPDoc code {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: var(--surface-tertiary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-subtle);
+}
+
+.VPDoc div[class*="language-"] {
+  margin: var(--space-8) 0;
+  border-radius: 8px;
+  border: 1px solid var(--border-subtle);
+  overflow: hidden;
+  background: var(--surface-primary);
+}
+
+.dark .VPDoc div[class*="language-"] {
+  background: #0A0A0A;
+}
+
+.VPDoc div[class*="language-"] pre {
+  margin: 0;
+  padding: var(--space-5);
+  overflow-x: auto;
+  font-size: var(--text-sm);
+  line-height: var(--leading-relaxed);
+}
+
+.VPDoc div[class*="language-"] code {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+}
+
+
+/* ============================================
+   Responsive Layout Overrides
+   ============================================ */
+
+@media (max-width: 1440px) {
+  :root {
+    --toc-width: 240px;
+    --sidebar-width: 220px;
+  }
+}
+
+@media (max-width: 1024px) {
+  :root {
+    --sidebar-width: 220px;
+    --toc-width: 0px; 
+  }
+
+  .VPDocAside {
+    display: none;
+  }
+
+  .VPContent {
+    margin-right: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --nav-height: 52px;
+    --sidebar-width: 0px;
+  }
+
+  #app {
+    box-shadow: none;
+  }
+  body {
+    background-color: var(--bg-page);
+  }
+
+  .VPSidebar {
+    left: 0;
+    transform: translateX(-100%);
+    transition: transform var(--transition-normal);
+    width: 280px;
+    background: var(--bg-page) !important;
+    z-index: var(--z-overlay);
+    padding: var(--space-6) !important;
+    border-right: 1px solid var(--border-subtle) !important;
+  }
+
+  .VPSidebar.open {
+    transform: translateX(0);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .VPContent {
+    margin-left: 0;
+  }
+
+  .VPDoc {
+    padding: var(--space-8) var(--space-4);
+  }
+}
+`
+fs.writeFileSync(
+  path.join(__dirname, "..", "docs", ".vitepress", "theme", "custom.css"),
+  newCSS
+);
+console.log("Rewrote custom.css");
+
