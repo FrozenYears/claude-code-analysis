@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "skills": {
+    "code-review-and-quality": {
+      "source": "addyosmani/agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/code-review-and-quality/SKILL.md",
+      "computedHash": "31afa3c52991ed84a1f0b97d5a9dc9f1ada08307108e88c3102de7c41a50c0a4"
+    },
+    "git-workflow-and-versioning": {
+      "source": "addyosmani/agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/git-workflow-and-versioning/SKILL.md",
+      "computedHash": "f4687d5f0edc5693f1414546cd02909b22f4de61ef89d17254ed1ee7cdcffab5"
+    },
+    "persona-project-manager": {
+      "source": "googleworkspace/cli",
+      "sourceType": "github",
+      "skillPath": "skills/persona-project-manager/SKILL.md",
+      "computedHash": "87ef64423fd2fe008fa31a0c268f7831c89a397844cfa1f36f99ae7430398385"
+    },
+    "vitepress": {
+      "source": "antfu/skills",
+      "sourceType": "github",
+      "skillPath": "skills/vitepress/SKILL.md",
+      "computedHash": "a8aa9c4c23b88c5f6ff59159d8dd0678c8c87ae28bab19b4e84fa399022ce5ce"
+    }
+  }
+}
