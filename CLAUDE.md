@@ -23,18 +23,17 @@ python3 build_ebook.py   # 构建独立 HTML 电子书 → ebook/index.html
 
 ## 架构要点
 
-### 双内容结构
+### 内容结构
 
-项目有两套平行的内容表示：
+所有章节内容统一存放在 `docs/` 下：
 
-1. **根目录章节**（`00-阅读路线/` ~ `14-安全与权限/`，各含 `README.md`）— 原始内容，也是电子书构建源
-2. **VitePress 章节**（`docs/chapters/01-architecture/` ~ `docs/chapters/14-security/`，各含 `index.md`）— 站点展示用
-
-编辑内容时需注意两边保持同步，或明确当前只改哪一边。
+- **VitePress 章节**：`docs/chapters/01-architecture/` ~ `docs/chapters/14-security/`，各含 `index.md`
+- **阅读路线图**：`docs/reading-roadmap.md`
+- **电子书源**：`build_ebook.py` 读取上述 `docs/` 下的 Markdown 文件，合并为单一 HTML
 
 ### 章节模板
 
-每章遵循 11 段结构（定义于 `规划.md`）：章节目标 → 前置知识 → 宏观概览 → 源码入口 → 调用链分析 → 核心源码分析 → 架构设计思想 → 工程实践细节 → 常见错误 → 本章小结 → 延伸思考
+每章遵循 11 段结构（定义于 `docs/planning.md`）：章节目标 → 前置知识 → 宏观概览 → 源码入口 → 调用链分析 → 核心源码分析 → 架构设计思想 → 工程实践细节 → 常见错误 → 本章小结 → 延伸思考
 
 ### 关键文件
 
@@ -43,9 +42,9 @@ python3 build_ebook.py   # 构建独立 HTML 电子书 → ebook/index.html
 | `docs/.vitepress/config.ts` | VitePress 配置（导航、侧边栏、Mermaid、搜索） |
 | `docs/.vitepress/theme/custom.css` | Anthropic Docs 风格设计系统（~734 行，含暗色模式、响应式断点） |
 | `docs/.vitepress/theme/index.ts` | 主题入口，扩展 DefaultTheme |
-| `build_ebook.py` | 将根目录章节合并为单一 HTML 电子书 |
+| `build_ebook.py` | 将 docs/ 下章节合并为单一 HTML 电子书 |
 | `scripts/rewrite.cjs` | CSS 重写工具，覆盖 custom.css |
-| `规划.md` | 写作规划和章节依赖图 |
+| `docs/planning.md` | 写作规划和章节依赖图 |
 | `.github/workflows/deploy.yml` | CI：push 到 main 触发构建并部署到 gh-pages |
 
 ### 技术栈

@@ -66,10 +66,15 @@ claude-code-analysis/
 │   │       └── custom.css     # 自定义样式
 │   ├── chapters/              # 15 章内容
 │   ├── public/                # 静态资源
-│   └── index.md               # 首页
+│   ├── index.md               # 首页
+│   ├── reading-roadmap.md     # 阅读路线图
+│   └── planning.md            # 写作规划
+├── scripts/
+│   └── rewrite.cjs            # CSS 重写工具
 ├── .github/
 │   └── workflows/
 │       └── deploy.yml         # GitHub Pages 部署
+├── build_ebook.py             # 构建独立 HTML 电子书
 ├── package.json
 └── README.md
 ```

@@ -728,3 +728,176 @@ body {
     padding: var(--space-8) var(--space-4);
   }
 }
+
+
+/* ============================================
+   Custom Scrollbars (replacing display:none for a11y)
+   ============================================ */
+
+.VPSidebar::-webkit-scrollbar {
+  display: block;
+  width: 4px;
+}
+.VPSidebar::-webkit-scrollbar-thumb {
+  background: var(--border-default);
+  border-radius: 2px;
+}
+.VPSidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.VPDocAside::-webkit-scrollbar {
+  display: block;
+  width: 4px;
+}
+.VPDocAside::-webkit-scrollbar-thumb {
+  background: var(--border-default);
+  border-radius: 2px;
+}
+.VPDocAside::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Firefox scrollbar */
+.VPSidebar {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-default) transparent;
+}
+.VPDocAside {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-default) transparent;
+}
+
+
+/* ============================================
+   Header Anchor Links (visible on hover)
+   ============================================ */
+
+.header-anchor {
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+  margin-left: -1em;
+  padding-right: 0.5em;
+}
+h1:hover .header-anchor,
+h2:hover .header-anchor,
+h3:hover .header-anchor,
+h4:hover .header-anchor,
+h5:hover .header-anchor,
+h6:hover .header-anchor {
+  opacity: 0.4;
+}
+.header-anchor:hover {
+  opacity: 1 !important;
+}
+
+
+/* ============================================
+   Focus Visible (keyboard navigation)
+   ============================================ */
+
+:focus-visible {
+  outline: 2px solid var(--brand-primary) !important;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+
+/* ============================================
+   Responsive Tables
+   ============================================ */
+
+@media (max-width: 768px) {
+  .VPDoc table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+
+/* ============================================
+   Back to Top Button
+   ============================================ */
+
+.VPBackToTop {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity var(--transition-normal), transform var(--transition-normal);
+}
+.VPBackToTop.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* ============================================
+   Code Block Enhancements
+   ============================================ */
+
+/* Language label on code blocks */
+.VPDoc div[class*="language-"]::before {
+  content: attr(data-lang);
+  position: absolute;
+  top: 0;
+  right: 12px;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  padding: 4px 8px;
+  z-index: 1;
+}
+.VPDoc div[class*="language-"] {
+  position: relative;
+}
+
+
+/* ============================================
+   Print Styles
+   ============================================ */
+
+@media print {
+  .VPNav,
+  .VPSidebar,
+  .VPDocAside,
+  .VPBackToTop,
+  .edit-link,
+  .prev-next {
+    display: none !important;
+  }
+
+  .VPContent {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  .VPDoc {
+    padding: 0 !important;
+    max-width: 100% !important;
+  }
+
+  #app {
+    box-shadow: none;
+    max-width: 100%;
+  }
+
+  body {
+    background: white;
+    font-size: 12pt;
+    color: black;
+  }
+
+  .dark body,
+  .dark .VPDoc {
+    color: black !important;
+    background: white !important;
+  }
+
+  .VPDoc a {
+    color: black;
+    text-decoration: underline;
+  }
+}

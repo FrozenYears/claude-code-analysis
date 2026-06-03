@@ -10,30 +10,31 @@ BASE = Path(__file__).parent
 OUT = BASE / "ebook"
 
 CHAPTERS = [
-    ("00-阅读路线", "📖 阅读路线图"),
-    ("01-整体架构", "🏗️ 整体架构"),
-    ("02-CLI入口与启动流程", "🚀 CLI入口与启动流程"),
-    ("03-QueryEngine核心", "⚙️ QueryEngine核心"),
-    ("04-Agent系统", "🤖 Agent系统"),
-    ("05-Tool系统", "🔧 Tool系统"),
-    ("06-Prompt系统", "📝 Prompt系统"),
-    ("07-Context系统", "📦 Context系统"),
-    ("08-Session与状态管理", "💾 Session与状态管理"),
-    ("09-Streaming与API通信", "📡 Streaming与API通信"),
-    ("10-多Agent协作", "🤝 多Agent协作"),
-    ("11-命令系统", "⌨️ 命令系统"),
-    ("12-UI组件系统", "🎨 UI组件系统"),
-    ("13-插件与扩展", "🔌 插件与扩展"),
-    ("14-安全与权限", "🔒 安全与权限"),
+    ("docs/reading-roadmap.md", "📖 阅读路线图"),
+    ("docs/chapters/01-architecture/index.md", "🏗️ 整体架构"),
+    ("docs/chapters/02-cli-entry/index.md", "🚀 CLI入口与启动流程"),
+    ("docs/chapters/03-query-engine/index.md", "⚙️ QueryEngine核心"),
+    ("docs/chapters/04-agent-system/index.md", "🤖 Agent系统"),
+    ("docs/chapters/05-tool-system/index.md", "🔧 Tool系统"),
+    ("docs/chapters/06-prompt-system/index.md", "📝 Prompt系统"),
+    ("docs/chapters/07-context-system/index.md", "📦 Context系统"),
+    ("docs/chapters/08-session-state/index.md", "💾 Session与状态管理"),
+    ("docs/chapters/09-streaming-api/index.md", "📡 Streaming与API通信"),
+    ("docs/chapters/10-multi-agent/index.md", "🤝 多Agent协作"),
+    ("docs/chapters/11-commands/index.md", "⌨️ 命令系统"),
+    ("docs/chapters/12-ui-components/index.md", "🎨 UI组件系统"),
+    ("docs/chapters/13-plugins/index.md", "🔌 插件与扩展"),
+    ("docs/chapters/14-security/index.md", "🔒 安全与权限"),
 ]
 
 def load_chapters():
     chapters = []
-    for folder, title in CHAPTERS:
-        md_path = BASE / folder / "README.md"
+    for filepath, title in CHAPTERS:
+        md_path = BASE / filepath
         if md_path.exists():
             content = md_path.read_text(encoding="utf-8")
-            chapters.append({"id": folder, "title": title, "content": content, "size": len(content)})
+            chapter_id = filepath.split("/")[-2] if "/chapters/" in filepath else "reading-roadmap"
+            chapters.append({"id": chapter_id, "title": title, "content": content, "size": len(content)})
     return chapters
 
 HTML = r"""<!DOCTYPE html>

@@ -7,21 +7,42 @@ export default withMermaid(
     description: 'Claude Code 源码深度解析 — 从架构到实现的全面剖析',
     lang: 'zh-CN',
     base: '/claude-code-analysis/',
-    
+
     lastUpdated: true,
     cleanUrls: true,
-    
+
     head: [
       ['link', { rel: 'icon', type: 'image/svg+xml', href: '/claude-code-analysis/logo.svg' }],
       ['meta', { name: 'theme-color', content: '#0E0E0E' }],
       ['meta', { property: 'og:type', content: 'website' }],
       ['meta', { property: 'og:title', content: 'Claude Code 源码剖析' }],
       ['meta', { property: 'og:description', content: 'Claude Code 源码深度解析 — 从架构到实现的全面剖析' }],
+      ['meta', { name: 'twitter:card', content: 'summary' }],
+      ['meta', { name: 'twitter:title', content: 'Claude Code 源码剖析' }],
     ],
-    
+
+    transformHead: ({ pageData }) => {
+      const canonical = `https://frozenyears.github.io/claude-code-analysis${pageData.relativePath.replace(/index\.md$/, '').replace(/\.md$/, '')}`
+      return [
+        ['link', { rel: 'canonical', href: canonical }],
+      ]
+    },
+
+    sitemap: {
+      hostname: 'https://frozenyears.github.io',
+    },
+
+    markdown: {
+      theme: {
+        light: 'github-light',
+        dark: 'github-dark',
+      },
+      lineNumbers: false,
+    },
+
     themeConfig: {
       logo: '/logo.svg',
-      
+
       nav: [
         { text: '首页', link: '/' },
         { text: '阅读路线', link: '/reading-roadmap' },
@@ -34,7 +55,7 @@ export default withMermaid(
           ]
         }
       ],
-      
+
       sidebar: {
         '/chapters/': [
           {
@@ -84,34 +105,34 @@ export default withMermaid(
           }
         ]
       },
-      
+
       socialLinks: [
         { icon: 'github', link: 'https://github.com/FrozenYears/claude-code-analysis' }
       ],
-      
+
       footer: {
         message: '基于 Claude Code 源码的深度逆向工程分析',
         copyright: '© 2025-2026 Claude Code Analysis Project'
       },
-      
+
       outline: {
         level: [2, 3],
         label: '本章目录'
       },
-      
+
       lastUpdated: {
         text: '最后更新于'
       },
-      
+
       docFooter: {
         prev: '上一章',
         next: '下一章'
       },
-      
+
       returnToTopLabel: '回到顶部',
       sidebarMenuLabel: '菜单',
       darkModeSwitchLabel: '主题',
-      
+
       search: {
         provider: 'local',
         options: {
@@ -132,21 +153,21 @@ export default withMermaid(
           }
         }
       },
-      
+
       editLink: {
         pattern: 'https://github.com/FrozenYears/claude-code-analysis/edit/main/docs/:path',
         text: '在 GitHub 上编辑此页面'
       }
     },
-    
+
     mermaid: {
       theme: 'default'
     },
-    
+
     mermaidPlugin: {
       class: 'mermaid'
     },
-    
+
     vite: {
       build: {
         chunkSizeWarningLimit: 2000

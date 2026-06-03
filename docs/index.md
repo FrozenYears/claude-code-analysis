@@ -20,20 +20,21 @@ hero:
 
 features:
   - icon: 🏗️
-    title: 四层架构
-    details: 深入理解用户界面层、引擎层、工具层、基础设施层的完整架构设计
+    title: 四层架构全景
+    details: 从用户界面层、引擎层、工具层到基础设施层，完整呈现 Claude Code 的分层架构设计与模块依赖关系
   - icon: ⚙️
-    title: Agentic Loop
-    details: 剖析 query() 函数中的无限循环，理解 LLM 与工具之间的多轮交互机制
+    title: Agentic Loop 核心
+    details: 逐行解析 query() 中的无限循环机制，揭示 LLM 与 40+ 工具之间的多轮交互核心逻辑
   - icon: 🤖
-    title: Agent 系统
-    details: 探索子 Agent 创建、Fork 机制、多 Agent 协作的完整实现
+    title: 多 Agent 协作
+    details: 探索子 Agent 创建、Fork 分身机制、Coordinator/Task 两种协调模式的完整实现
   - icon: 🔧
-    title: Tool 系统
-    details: 分析 40+ 内置工具的注册、权限检查、执行流程的完整设计
+    title: 工具系统全解
+    details: 覆盖 BashTool、ReadTool、WriteTool、AgentTool 等全部核心工具的注册、权限检查与执行流程
   - icon: 📦
-    title: Context 管理
-    details: 理解四级上下文压缩策略：Snip、Microcompact、Context Collapse、Auto-compact
+    title: 上下文管理
+    details: 理解 Snip → Microcompact → Context Collapse → Auto-compact 四级渐进式压缩策略
   - icon: 🔒
-    title: 安全机制
-    details: 揭示工具权限控制、BashTool 安全检查链、权限模式切换的完整安全架构
+    title: 安全权限模型
+    details: 揭示工具权限控制、BashTool 安全检查链、4 种权限模式的完整架构与实现细节
+---
