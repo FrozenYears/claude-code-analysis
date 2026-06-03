@@ -1,0 +1,20 @@
+import{c as a,Q as s,j as n,m as e}from"./chunks/framework.ByFTruQ0.js";const u=JSON.parse('{"title":"Claude Code 源码深度剖析 — 完整撰写规划","description":"","frontmatter":{},"headers":[],"relativePath":"planning.md","filePath":"planning.md","lastUpdated":1780481759000}'),l={name:"planning.md"};function d(i,t,p,o,r,c){return s(),n("div",null,[...t[0]||(t[0]=[e(`<h1 id="claude-code-源码深度剖析-—-完整撰写规划" tabindex="-1">Claude Code 源码深度剖析 — 完整撰写规划 <a class="header-anchor" href="#claude-code-源码深度剖析-—-完整撰写规划" aria-label="Permalink to &quot;Claude Code 源码深度剖析 — 完整撰写规划&quot;">​</a></h1><h2 id="总体结构" tabindex="-1">总体结构 <a class="header-anchor" href="#总体结构" aria-label="Permalink to &quot;总体结构&quot;">​</a></h2><p>14 章，每章 11 节固定结构，预计总字数 15-20 万字。</p><h2 id="章节依赖关系" tabindex="-1">章节依赖关系 <a class="header-anchor" href="#章节依赖关系" aria-label="Permalink to &quot;章节依赖关系&quot;">​</a></h2><div class="language- vp-adaptive-theme"><button title="Copy Code" class="copy"></button><span class="lang"></span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span>00-阅读路线（独立）</span></span>
+<span class="line"><span>01-整体架构（独立，全局鸟瞰）</span></span>
+<span class="line"><span>  ↓</span></span>
+<span class="line"><span>02-CLI入口与启动流程（依赖01）</span></span>
+<span class="line"><span>03-QueryEngine核心（依赖02）</span></span>
+<span class="line"><span>  ↓</span></span>
+<span class="line"><span>04-Tool系统（依赖03）</span></span>
+<span class="line"><span>05-Prompt系统（依赖03）</span></span>
+<span class="line"><span>06-Context系统（依赖05）</span></span>
+<span class="line"><span>  ↓</span></span>
+<span class="line"><span>07-Agent系统（依赖04）</span></span>
+<span class="line"><span>08-Session与状态管理（依赖03）</span></span>
+<span class="line"><span>  ↓</span></span>
+<span class="line"><span>09-Streaming与API通信（依赖03）</span></span>
+<span class="line"><span>10-多Agent协作（依赖07）</span></span>
+<span class="line"><span>  ↓</span></span>
+<span class="line"><span>11-命令系统（依赖04）</span></span>
+<span class="line"><span>12-UI组件系统（依赖02）</span></span>
+<span class="line"><span>13-插件与扩展（依赖04）</span></span>
+<span class="line"><span>14-安全与权限（依赖04）</span></span></code></pre></div><h2 id="每章-11-节模板" tabindex="-1">每章 11 节模板 <a class="header-anchor" href="#每章-11-节模板" aria-label="Permalink to &quot;每章 11 节模板&quot;">​</a></h2><ol><li>本章目标</li><li>前置知识</li><li>宏观概览</li><li>源码入口定位</li><li>调用链分析</li><li>核心源码解析</li><li>架构设计思想</li><li>工程实践细节</li><li>初学者易错点</li><li>本章总结</li><li>延伸思考</li></ol><h2 id="撰写顺序" tabindex="-1">撰写顺序 <a class="header-anchor" href="#撰写顺序" aria-label="Permalink to &quot;撰写顺序&quot;">​</a></h2><p>按依赖关系：</p><ul><li>第一批：00, 01（已完成，需重写01）</li><li>第二批：02, 03, 05</li><li>第三批：04, 06, 07, 08, 09</li><li>第四批：10, 11, 12, 13, 14</li></ul><h2 id="关键源码文件清单" tabindex="-1">关键源码文件清单 <a class="header-anchor" href="#关键源码文件清单" aria-label="Permalink to &quot;关键源码文件清单&quot;">​</a></h2><table tabindex="0"><thead><tr><th>章节</th><th>核心文件</th><th>行数</th></tr></thead><tbody><tr><td>02-CLI</td><td>entrypoints/cli.tsx, main.tsx, setup.ts</td><td>4684+478</td></tr><tr><td>03-QueryEngine</td><td>QueryEngine.ts, query.ts, query/*.ts</td><td>1297+1730</td></tr><tr><td>04-Tool</td><td>Tool.ts, tools.ts, tools/*.ts</td><td>794+390</td></tr><tr><td>05-Prompt</td><td>context.ts, constants/prompts.ts</td><td>190+?</td></tr><tr><td>06-Context</td><td>context/, utils/attachments.ts, utils/queryContext.ts</td><td>3998</td></tr><tr><td>07-Agent</td><td>tools/AgentTool/, tasks/LocalAgentTask/</td><td>多文件</td></tr><tr><td>08-Session</td><td>state/, utils/sessionStorage.ts</td><td>5106</td></tr><tr><td>09-Streaming</td><td>services/api/claude.ts, services/api/*.ts</td><td>3420</td></tr><tr><td>10-多Agent</td><td>coordinator/, tools/AgentTool/forkSubagent.ts</td><td>多文件</td></tr><tr><td>11-命令</td><td>commands/, commands.ts</td><td>754+101目录</td></tr><tr><td>12-UI</td><td>components/, screens/, ink/</td><td>144目录</td></tr><tr><td>13-插件</td><td>plugins/, skills/, services/mcp/</td><td>3349</td></tr><tr><td>14-安全</td><td>hooks/toolPermission/, utils/permissions/</td><td>多文件</td></tr></tbody></table>`,12)])])}const m=a(l,[["render",d]]);export{u as __pageData,m as default};
