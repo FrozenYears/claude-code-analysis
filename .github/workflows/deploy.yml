@@ -24,7 +24,15 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Validate ebook build
+        run: python3 build_ebook.py
+
+      - name: Build VitePress
         run: npm run build
 
       - name: Deploy to GitHub Pages
