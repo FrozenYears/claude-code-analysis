@@ -799,7 +799,6 @@ h6:hover .header-anchor {
 :focus-visible {
   outline: 2px solid var(--brand-primary) !important;
   outline-offset: 2px;
-  border-radius: 4px;
 }
 :focus:not(:focus-visible) {
   outline: none;
@@ -831,27 +830,6 @@ h6:hover .header-anchor {
 .VPBackToTop.visible {
   opacity: 1;
   transform: translateY(0);
-}
-
-
-/* ============================================
-   Code Block Enhancements
-   ============================================ */
-
-/* Language label on code blocks */
-.VPDoc div[class*="language-"]::before {
-  content: attr(data-lang);
-  position: absolute;
-  top: 0;
-  right: 12px;
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  color: var(--text-muted);
-  padding: 4px 8px;
-  z-index: 1;
-}
-.VPDoc div[class*="language-"] {
-  position: relative;
 }
 
 

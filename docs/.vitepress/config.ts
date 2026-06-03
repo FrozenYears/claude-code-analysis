@@ -22,7 +22,8 @@ export default withMermaid(
     ],
 
     transformHead: ({ pageData }) => {
-      const canonical = `https://frozenyears.github.io/claude-code-analysis${pageData.relativePath.replace(/index\.md$/, '').replace(/\.md$/, '')}`
+      const path = pageData?.relativePath?.replace(/index\.md$/, '').replace(/\.md$/, '') ?? ''
+      const canonical = `https://frozenyears.github.io/claude-code-analysis${path}`
       return [
         ['link', { rel: 'canonical', href: canonical }],
       ]
